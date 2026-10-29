@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Projects">
+<meta name="theme-color" content="#15132c">
+<title>Projects</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--dim:rgba(255,255,255,.55);--glass:rgba(255,255,255,.09);--line:rgba(255,255,255,.14);--btn:rgba(40,12,90,.55)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden}
+html{height:calc(100% + 100px);background-color:#15132c;background-repeat:no-repeat;background-size:100% 100%;
+  background-image:
+   radial-gradient(150% 95% at 112% 112%,#e8735a 0%,#d4665a 14%,rgba(196,84,128,.85) 34%,rgba(130,45,180,0) 70%),
+   radial-gradient(75% 55% at 108% 58%,rgba(150,60,220,.75) 0%,rgba(150,60,220,0) 72%),
+   radial-gradient(70% 55% at 0% 100%,rgba(100,40,190,.7) 0%,rgba(100,40,190,0) 70%),
+   linear-gradient(155deg,#10101c 0%,#1a1540 30%,#3f1a96 58%,#5f27b0 82%,#7a2fb8 100%)}
+body{position:fixed;inset:0;background:transparent;color:#fff;font-family:"Space Grotesk","Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;left:0;right:0;top:0;z-index:5;pointer-events:none;height:calc(env(safe-area-inset-top,0px) + 56px);
+  background:linear-gradient(to bottom,#15132c 0,#15132c env(safe-area-inset-top,0px),rgba(21,19,44,0) 100%)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#app{position:absolute;inset:0;z-index:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(env(safe-area-inset-top,0px) + 34px) calc(env(safe-area-inset-right,0px) + 20px) calc(env(safe-area-inset-bottom,0px) + 48px) calc(env(safe-area-inset-left,0px) + 20px)}
+.in{max-width:560px;margin:0 auto}
+h1{font-size:clamp(34px,10vw,52px);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0 0 6px;overflow-wrap:anywhere}
+.sub,.meta{color:var(--dim);font-size:15px}
+.sub{margin-bottom:22px}
+.add{display:flex;gap:10px;margin-bottom:18px}
+.txt{flex:1;min-width:0;width:100%;height:54px;padding:0 16px;border-radius:18px;border:1px solid var(--line);background:var(--glass);color:#fff;font:500 16px "Space Grotesk",sans-serif;outline:none}
+.txt::placeholder{color:var(--dim)}
+.txt:focus{border-color:rgba(255,255,255,.4)}
+.btn{flex:none;width:54px;height:54px;border:0;border-radius:18px;background:var(--btn);color:#fff;display:grid;place-items:center;cursor:pointer}
+.btn svg{width:44%;height:44%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs{display:flex;flex-wrap:wrap;gap:6px 20px;margin:2px 0 18px}
+.tab{background:none;border:0;padding:6px 2px;color:var(--dim);font:500 15px "Space Grotesk",sans-serif;text-transform:uppercase;cursor:pointer}
+.tab.on{color:#fff}
+.card{display:block;width:100%;text-align:left;margin-bottom:12px;padding:18px 18px 16px;border-radius:24px;border:1px solid var(--line);background:var(--glass);color:#fff;font-family:inherit;cursor:pointer;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.card.done{opacity:.62}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.nm{font-size:20px;font-weight:600;overflow-wrap:anywhere}
+.pc{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.14);margin-top:14px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8a5cff,#e8735a);transition:width .35s}
+.big{font-size:min(26vw,150px);font-weight:700;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;margin:16px 0 6px}
+.task{display:flex;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line)}
+.ck{flex:none;width:28px;height:28px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.55);background:none;display:grid;place-items:center;color:transparent;cursor:pointer}
+.ck.on{background:#fff;border-color:#fff;color:#4a1fc4}
+.tt{flex:1;font-size:17px;overflow-wrap:anywhere}
+.tt.d{color:var(--dim);text-decoration:line-through}
+.x{background:none;border:0;color:var(--dim);font-size:24px;line-height:1;padding:6px 8px;cursor:pointer}
+h2{font-size:18px;font-weight:700;margin:32px 0 12px}
+.link{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line)}
+.link a{flex:1;min-width:0;color:#fff;text-decoration:none;font-size:16px;font-weight:600;overflow-wrap:anywhere}
+.link small{display:block;margin-top:2px;color:var(--dim);font-size:13px;font-weight:400;overflow-wrap:anywhere}
+.txt.bad{border-color:#e8735a}
+.pills{display:flex;gap:8px;margin-top:6px}
+.pill{border:1px solid var(--line);background:var(--glass);color:var(--dim);border-radius:99px;padding:8px 16px;font:500 14px "Space Grotesk",sans-serif;text-transform:capitalize;cursor:pointer}
+.pill.on{background:#fff;border-color:#fff;color:#4a1fc4}
+.badge{text-transform:capitalize;margin-left:8px;padding:2px 9px;border-radius:99px;background:rgba(255,255,255,.16);color:#fff;font-size:12px}
+.pt{flex:1;min-width:0;font-size:17px;font-weight:600;overflow-wrap:anywhere}
+.pt small{display:block;margin-top:2px;color:var(--dim);font-size:14px;font-weight:400}
+.qty{flex:none;display:flex;align-items:center;border:1px solid var(--line);border-radius:99px;background:var(--glass)}
+.qty button{width:36px;height:36px;border:0;border-radius:50%;background:none;color:#fff;font:600 20px "Space Grotesk",sans-serif;cursor:pointer}
+.qty span{min-width:26px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.bk{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.hrow{display:flex;align-items:flex-start;gap:4px;margin-top:20px}
+.hrow h1{flex:1;min-width:0;margin:0}
+.hrow .x{margin-top:6px}
+.txt.sm{height:46px;border-radius:14px}
+.eform{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.x svg{display:block}
+.tot{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:12px 16px;border:1px solid var(--line);border-radius:18px;background:var(--glass)}
+.tot span{flex:1}
+.tot b{font-size:24px;font-variant-numeric:tabular-nums}
+.tot .pill{padding:6px 12px}
+.tabs{align-items:center}
+.tsum{margin-left:auto;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.tsum b{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.cursel{-webkit-appearance:none;appearance:none;border:0;border-radius:0;color:var(--dim);font:500 14px "Space Grotesk",sans-serif;padding:6px 16px 6px 0;cursor:pointer;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' fill='none' stroke='white' stroke-width='1.6'/></svg>") no-repeat right center}
+.cursel option{color:#000}
+.pt.d{color:var(--dim)}
+.pt.d .pn{text-decoration:line-through}
+.notes{display:block;width:100%;min-height:45vh;padding:14px 16px;border-radius:18px;border:1px solid var(--line);background:var(--glass);color:#fff;font:400 16px/1.55 "Space Grotesk",sans-serif;outline:none;resize:none;overflow:hidden}
+.notes::placeholder{color:var(--dim)}
+.notes:focus{border-color:rgba(255,255,255,.4)}
+#warn{display:none;position:fixed;z-index:20;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 10px);padding:12px 16px;border-radius:16px;background:#c4553f;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.danger{width:100%;height:50px;margin-top:30px;border:0;border-radius:18px;background:var(--btn);color:#fff;font:600 16px "Space Grotesk",sans-serif;cursor:pointer}
+.empty{color:var(--dim);text-align:center;padding:34px 8px;font-size:16px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const $=s=>document.querySelector(s);
+const PLUS='<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',BACK='<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>';
+const CK='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+let P=[],view=null,filter="all",armed=false,ptab="tasks",editing=null;
+let db=null;
+let prot=null;
+const protText=()=>"Storage protected: "+(prot===true?"yes":prot===false?"no, keep exporting backups":prot==="na"?"not supported by this browser":"checking");
+const idb=()=>new Promise((ok,no)=>{try{const r=indexedDB.open("projects-app",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error);r.onblocked=()=>no(new Error("blocked"))}catch(e){no(e)}});
+const kvGet=k=>new Promise((ok,no)=>{const r=db.transaction("kv").objectStore("kv").get(k);r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const kvSet=(k,v)=>new Promise((ok,no)=>{const t=db.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>ok();t.onerror=()=>no(t.error);t.onabort=()=>no(t.error||new Error("aborted"))});
+function warn(t){let w=$("#warn");if(!w){w=document.createElement("div");w.id="warn";w.onclick=()=>{w.style.display="none"};document.body.appendChild(w)}w.textContent=t;w.style.display=t?"block":"none"}
+let q=Promise.resolve();
+const save=()=>{
+  const snap=db?null:JSON.stringify(P);
+  q=q.then(async()=>{
+    try{if(db)await kvSet("projects",P);else localStorage.setItem("proj1",snap);warn("")}
+    catch(e){warn("Could not save your changes. Storage may be full. Please export a backup now.")}
+  });
+};
+const uid=()=>Math.random().toString(36).slice(2,9);
+const done=p=>p.tasks.filter(t=>t.d).length;
+const pct=p=>p.tasks.length?Math.round(done(p)/p.tasks.length*100):0;
+const fin=p=>p.tasks.length>0&&pct(p)===100;
+const st=p=>p.s==="dropped"?"dropped":fin(p)?"done":p.s==="planned"?"planned":"active";
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PEN='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>';
+const num=s=>{s=String(s==null?"":s).trim();s=(s.includes(",")&&s.includes("."))?s.replace(/,/g,""):s.replace(",",".");const v=parseFloat(s);return isFinite(v)&&v>0?Math.round(Math.min(v,1e9)*100)/100:0};
+const CUR={USD:"$",EUR:"€",GBP:"£",JPY:"¥",INR:"₹",TRY:"₺",CAD:"CA$",AUD:"A$",AED:"AED",SAR:"SAR",BDT:"৳"};
+let cur="USD";try{const c=localStorage.getItem("cur2");if(CUR[c])cur=c}catch(e){}
+const money=v=>{const s=CUR[cur];return s+(s.length>3?" ":"")+v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})};
+const partsInfo=p=>{const a=p.parts||[];if(!a.length)return"";const n=a.filter(x=>x.b).length,left=a.filter(x=>!x.b).reduce((s,x)=>s+(x.pr||0)*(x.q||1),0);return`<div class="meta" style="margin:4px 2px 2px">${n===a.length?"All parts bought":n+" of "+a.length+" bought"+(left?", "+money(left)+" left to buy":"")}</div>`};
+const isE=k=>editing===k;
+const penBtn=(k,l)=>`<button class="x" data-a="edit" data-k="${k}" aria-label="${l}">${PEN}</button>`;
+const saveCancel='<button class="x" data-a="save" aria-label="Save">✓</button><button class="x" data-a="cancel" aria-label="Cancel">×</button>';
+const editTask=t=>`<div class="task"><input class="txt sm" id="e1" value="${esc(t.t)}" maxlength="120" enterkeyhint="done">${saveCancel}</div>`;
+const editPart=x=>`<div class="task"><div class="eform"><input class="txt sm" id="e1" value="${esc(x.n)}" placeholder="Part name" maxlength="60" enterkeyhint="next"><input class="txt sm" id="e2" value="${esc(x.c||"")}" placeholder="Note (optional)" maxlength="120" enterkeyhint="next"><input class="txt sm" id="e3" inputmode="decimal" value="${x.pr||""}" placeholder="Price each (optional)" maxlength="12" enterkeyhint="done"></div>${saveCancel}</div>`;
+const editLink=l=>`<div class="link"><div class="eform"><input class="txt sm" id="e1" value="${esc(l.c||"")}" placeholder="Caption" maxlength="80" enterkeyhint="next"><input class="txt sm" id="e2" type="url" inputmode="url" autocapitalize="off" autocorrect="off" value="${esc(l.u)}" placeholder="Link" maxlength="500" enterkeyhint="done"></div>${saveCancel}</div>`;
+function render(){
+  const a=$("#app"),sy=a.scrollTop;
+  if(view){
+    const p=P.find(x=>x.id===view);if(!p){view=null;return render()}
+    const c=pct(p);
+    a.innerHTML=`<div class="in"><button class="btn" data-a="back" aria-label="Back">${BACK}</button>
+    ${isE("name")?`<div class="add" style="margin:20px 0 6px"><input class="txt" id="e1" value="${esc(p.name)}" maxlength="60" enterkeyhint="done"><button class="btn" data-a="save" aria-label="Save name">${CK}</button></div>`:`<div class="hrow"><h1>${esc(p.name)}</h1>${penBtn("name","Rename project")}</div>`}
+    <div class="pills">${st(p)==="done"?'<span class="pill on">Done</span>':""}${["planned","active","dropped"].map(s=>`<button class="pill ${st(p)===s?"on":""}" data-a="stat" data-s="${s}">${s}</button>`).join("")}</div>
+    <div class="big">${c}%</div>
+    <div class="meta">${p.tasks.length?done(p)+" of "+p.tasks.length+" tasks done":"No tasks yet"}</div>
+    <div class="bar" style="margin-bottom:24px"><i style="width:${c}%"></i></div>
+    <div class="tabs">${["tasks","parts","links","notes"].map(f=>`<button class="tab ${ptab===f?"on":""}" data-a="ptab" data-f="${f}">${f}</button>`).join("")}${ptab==="parts"?`<span class="tsum"><select class="cursel" id="cursel" aria-label="Currency">${Object.keys(CUR).sort().map(k=>`<option value="${k}"${k===cur?" selected":""}>${k}</option>`).join("")}</select><b>${money((p.parts||[]).reduce((s,x)=>s+(x.pr||0)*(x.q||1),0))}</b></span>`:""}</div>
+    ${ptab==="tasks"?`<div class="add"><input class="txt" id="ti" placeholder="Add a task" maxlength="120" enterkeyhint="done"><button class="btn" data-a="addt" aria-label="Add task">${PLUS}</button></div>
+    ${p.tasks.length?p.tasks.map(t=>isE("t:"+t.id)?editTask(t):`<div class="task"><button class="ck ${t.d?"on":""}" data-a="tog" data-t="${t.id}" aria-label="Mark done">${CK}</button><span class="tt ${t.d?"d":""}">${esc(t.t)}</span>${penBtn("t:"+t.id,"Edit task")}<button class="x" data-a="delt" data-t="${t.id}" aria-label="Delete task">×</button></div>`).join(""):'<div class="empty">Add your first task to start tracking progress.</div>'}`:ptab==="parts"?`<div class="lform" style="margin-bottom:8px"><input class="txt" id="pn" placeholder="Part name" maxlength="60" enterkeyhint="next"><input class="txt" id="pc" style="margin-top:10px" placeholder="Note (optional)" maxlength="120" enterkeyhint="next"><div class="add" style="margin:10px 0 0"><input class="txt" id="pp" inputmode="decimal" placeholder="Price each (optional)" maxlength="12" enterkeyhint="done"><button class="btn" data-a="addpt" aria-label="Add part">${PLUS}</button></div></div>${partsInfo(p)}${(p.parts||[]).map(x=>isE("pt:"+x.id)?editPart(x):`<div class="task"><button class="ck ${x.b?"on":""}" data-a="buy" data-t="${x.id}" aria-label="Mark bought">${CK}</button><div class="pt${x.b?" d":""}"><span class="pn">${esc(x.n)}</span>${x.c?`<small>${esc(x.c)}</small>`:""}${x.pr?`<small>${money(x.pr)}×${x.q||1}=${money(x.pr*(x.q||1))}</small>`:""}</div><div class="qty"><button data-a="qm" data-t="${x.id}" aria-label="Decrease quantity">−</button><span>${x.q||1}</span><button data-a="qp" data-t="${x.id}" aria-label="Increase quantity">+</button></div>${penBtn("pt:"+x.id,"Edit part")}<button class="x" data-a="delpt" data-t="${x.id}" aria-label="Delete part">×</button></div>`).join("")||'<div class="empty">List the parts that make up this project, with a note on each.</div>'}`:ptab==="notes"?`<textarea class="notes" id="nt" placeholder="Write anything about this project: ideas, decisions, meeting notes, reminders" spellcheck="true">
+${esc(p.notes||"")}</textarea>`:`<div class="lform" style="margin-bottom:8px"><input class="txt" id="lc" placeholder="Caption: what is this link for?" maxlength="80" enterkeyhint="next"><div class="add" style="margin:10px 0 0"><input class="txt" id="li" type="url" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="Paste the link" maxlength="500" enterkeyhint="done"><button class="btn" data-a="addl" aria-label="Add link">${PLUS}</button></div></div>
+    ${(p.links||[]).map(l=>isE("l:"+l.id)?editLink(l):`<div class="link"><a href="${esc(l.u)}" target="_blank" rel="noopener noreferrer">${esc(l.c||host(l.u))}${l.c?`<small>${esc(host(l.u))}</small>`:""}</a>${penBtn("l:"+l.id,"Edit link")}<button class="x" data-a="dell" data-t="${l.id}" aria-label="Delete link">×</button></div>`).join("")||'<div class="empty">Save links for this project and add a caption saying what each one is.</div>'}`}
+    <button class="danger" data-a="delp">${armed?"Tap again to delete":"Delete project"}</button></div>`;
+  }else{
+    const n=s=>P.filter(p=>st(p)===s).length,L=P.filter(p=>filter==="all"||filter===st(p));
+    a.innerHTML=`<div class="in"><h1>Projects</h1>
+    <div class="sub">${P.length?["planned","active","done","dropped"].filter(s=>n(s)).map(s=>n(s)+" "+s).join(", "):"Track what you are building."}</div>
+    <div class="add"><input class="txt" id="pi" placeholder="Name a new project" maxlength="60" enterkeyhint="done"><button class="btn" data-a="add" aria-label="Add project">${PLUS}</button></div>
+    <div class="tabs">${["all","planned","active","done","dropped"].map(f=>`<button class="tab ${filter===f?"on":""}" data-a="filt" data-f="${f}">${f}</button>`).join("")}</div>
+    ${L.length?L.map(p=>`<button class="card ${["done","dropped"].includes(st(p))?"done":""}" data-a="open" data-id="${p.id}"><div class="row"><span class="nm">${esc(p.name)}</span><span class="pc">${pct(p)}%</span></div><div class="meta">${p.tasks.length?done(p)+" of "+p.tasks.length+" tasks":"No tasks yet"}<span class="badge">${st(p)}</span></div><div class="bar"><i style="width:${pct(p)}%"></i></div></button>`).join(""):`<div class="empty">${P.length?"Nothing here yet.":"No projects yet. Name your first one above."}</div>`}
+    <div class="bk"><div class="meta" style="width:100%">Back up your data to a file, or restore it from one.</div><button class="pill" data-a="exp">Export backup</button><button class="pill" data-a="imp">Import backup</button><div class="meta" id="prot" style="width:100%">${protText()}</div></div>
+    <div class="meta" id="bkmsg" style="margin-top:10px"></div><input type="file" id="bkf" accept="application/json,.json" hidden></div>`;
+  }
+  const nt=$("#nt");if(nt){nt.style.height="auto";nt.style.height=Math.max(nt.scrollHeight,200)+"px"}
+  a.scrollTop=sy;
+}
+function addP(){const i=$("#pi"),v=i.value.trim();if(!v)return;const p={id:uid(),name:v,tasks:[],s:"planned"};P.unshift(p);save();view=p.id;armed=false;ptab="tasks";render();$("#app").scrollTop=0}
+function say(t){const e=$("#bkmsg");if(e)e.textContent=t}
+async function exportData(){
+  const data=JSON.stringify({app:"projects",v:1,saved:new Date().toISOString(),projects:P},null,2),name="projects-backup-"+new Date().toISOString().slice(0,10)+".json";
+  try{const f=new File([data],name,{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"Projects backup"});say("Backup ready. Choose Save to Files.");return}}catch(e){if(e&&e.name==="AbortError")return}
+  try{const u=URL.createObjectURL(new Blob([data],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);say("Backup downloaded.")}catch(e){say("Could not export on this device.")}
+}
+function importData(file){
+  const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result),arr=Array.isArray(d)?d:d.projects;if(!Array.isArray(arr))throw 0;let n=0;
+    arr.forEach(x=>{if(!x||typeof x.name!=="string"||!Array.isArray(x.tasks))return;
+      const p={id:String(x.id||uid()),name:x.name.slice(0,60),s:x.s,notes:typeof x.notes==="string"?x.notes:"",
+        tasks:x.tasks.filter(t=>t&&typeof t.t==="string").map(t=>({id:String(t.id||uid()),t:t.t,d:!!t.d})),
+        links:(x.links||[]).filter(l=>l&&typeof l.u==="string"&&/^https?:\/\//i.test(l.u)).map(l=>({id:String(l.id||uid()),u:l.u,c:String(l.c||"")})),
+        parts:(x.parts||[]).filter(q=>q&&typeof q.n==="string").map(q=>({id:String(q.id||uid()),n:q.n,c:String(q.c||""),q:Math.max(1,Math.min(999,+q.q||1)),pr:num(q.pr),b:!!q.b}))};
+      if(!["planned","active","dropped"].includes(p.s))delete p.s;
+      const i=P.findIndex(y=>y.id===p.id);if(i>=0)P[i]=p;else P.push(p);n++});
+    save();view=null;render();say(n?"Imported "+n+" project"+(n>1?"s":"")+".":"No projects found in that file.")}catch(e){say("That file is not a valid backup.")}};
+  r.readAsText(file);
+}
+function saveEdit(){
+  const p=P.find(x=>x.id===view);if(!p||!editing)return;
+  const e1=$("#e1"),e2=$("#e2"),v1=e1?e1.value.trim():"",v2=e2?e2.value.trim():"",kind=editing.split(":")[0],id=editing.slice(kind.length+1);
+  if(editing==="name"){if(!v1)return;p.name=v1}
+  else if(kind==="t"){const t=p.tasks.find(x=>x.id===id);if(!v1||!t)return;t.t=v1}
+  else if(kind==="pt"){const x=(p.parts||[]).find(y=>y.id===id);if(!v1||!x)return;x.n=v1;x.c=v2;x.pr=num(($("#e3")||{}).value)}
+  else if(kind==="l"){const l=(p.links||[]).find(y=>y.id===id);let u=v2;if(!l||!u)return;if(!/^[a-z][a-z0-9+.-]*:\/\//i.test(u))u="https://"+u;
+    try{const o=new URL(u);if(!/^https?:$/.test(o.protocol)||!o.hostname.includes("."))throw 0}catch(err){e2.classList.add("bad");return}
+    l.u=u;l.c=v1}
+  editing=null;save();render()}
+function addPt(){const p=P.find(x=>x.id===view),v=$("#pn").value.trim();if(!v||!p)return;const c=$("#pc").value.trim();(p.parts=p.parts||[]).push({id:uid(),n:v,c,pr:num($("#pp").value)});save();render();$("#pn").focus()}
+const NM={github:"GitHub",youtube:"YouTube",youtu:"YouTube",linkedin:"LinkedIn",stackoverflow:"Stack Overflow",x:"X",tiktok:"TikTok",chatgpt:"ChatGPT",bbc:"BBC",cnn:"CNN",npr:"NPR",ibm:"IBM",mit:"MIT",npm:"npm"};
+const host=u=>{try{const hn=new URL(u).hostname.replace(/^www\./,"");if(/^[\d.]+$/.test(hn))return hn;const h=hn.split(".");let i=h.length-2;if(i>0&&h[i].length<=3&&["co","com","org","net","gov","edu","ac"].includes(h[i])&&h[h.length-1].length===2)i--;const n=h[Math.max(i,0)].toLowerCase();return NM[n]||n.charAt(0).toUpperCase()+n.slice(1)}catch(e){return u}};
+function addL(){const i=$("#li"),p=P.find(x=>x.id===view);let v=i.value.trim();if(!v||!p)return;if(!/^[a-z][a-z0-9+.-]*:\/\//i.test(v))v="https://"+v;
+  try{const u=new URL(v);if(!/^https?:$/.test(u.protocol)||!u.hostname.includes("."))throw 0}catch(e){i.classList.add("bad");return}
+  const c=$("#lc").value.trim();(p.links=p.links||[]).push({id:uid(),u:v,c});save();render();$("#lc").focus()}
+function addT(){const i=$("#ti"),v=i.value.trim(),p=P.find(x=>x.id===view);if(!v||!p)return;p.tasks.push({id:uid(),t:v,d:false});save();render();$("#ti").focus()}
+$("#app").addEventListener("click",e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,p=P.find(x=>x.id===view);
+  if(a==="add")addP();
+  else if(a==="open"){view=b.dataset.id;armed=false;editing=null;ptab="tasks";render();$("#app").scrollTop=0}
+  else if(a==="back"){view=null;armed=false;editing=null;render()}
+  else if(a==="edit"){editing=b.dataset.k;render();const e=$("#e1");if(e){e.focus();e.select()}}
+  else if(a==="cancel"){editing=null;render()}
+  else if(a==="save")saveEdit();
+  else if(a==="filt"){filter=b.dataset.f;render()}
+  else if(a==="ptab"){ptab=b.dataset.f;editing=null;render()}
+  else if(a==="stat"){p.s=b.dataset.s;save();render()}
+  else if(a==="addt")addT();
+  else if(a==="addl")addL();
+  else if(a==="buy"){const x=(p.parts||[]).find(y=>y.id===b.dataset.t);if(x){x.b=!x.b;save();render()}}
+  else if(a==="addpt")addPt();
+  else if(a==="exp")exportData();
+  else if(a==="imp")$("#bkf").click();
+  else if(a==="qp"||a==="qm"){const x=p.parts.find(y=>y.id===b.dataset.t);x.q=Math.max(1,Math.min(999,(x.q||1)+(a==="qp"?1:-1)));save();render()}
+  else if(a==="delpt"){p.parts=(p.parts||[]).filter(x=>x.id!==b.dataset.t);save();render()}
+  else if(a==="dell"){p.links=(p.links||[]).filter(x=>x.id!==b.dataset.t);save();render()}
+  else if(a==="tog"){const t=p.tasks.find(x=>x.id===b.dataset.t);t.d=!t.d;if(t.d&&p.s==="planned")p.s="active";save();render()}
+  else if(a==="delt"){p.tasks=p.tasks.filter(x=>x.id!==b.dataset.t);save();render()}
+  else if(a==="delp"){
+    if(!armed){armed=true;render();setTimeout(()=>{if(armed){armed=false;render()}},3000)}
+    else{P=P.filter(x=>x.id!==view);save();view=null;armed=false;render()}
+  }
+});
+$("#app").addEventListener("keydown",e=>{if(e.key!=="Enter")return;if(e.target.id==="e1"&&!$("#e2")){saveEdit();return}if(e.target.id==="e1"){$("#e2").focus();return}if(e.target.id==="e2"&&$("#e3")){$("#e3").focus();return}if(e.target.id==="e2"||e.target.id==="e3"){saveEdit();return}if(e.target.id==="pi")addP();if(e.target.id==="ti")addT();if(e.target.id==="li")addL();if(e.target.id==="lc")$("#li").focus();if(e.target.id==="pn")$("#pc").focus();if(e.target.id==="pc")$("#pp").focus();if(e.target.id==="pp")addPt()});
+let ntm=null;
+$("#app").addEventListener("input",e=>{e.target.classList.remove("bad");if(e.target.id==="nt"){const p=P.find(x=>x.id===view);if(!p)return;p.notes=e.target.value;e.target.style.height="auto";e.target.style.height=Math.max(e.target.scrollHeight,200)+"px";clearTimeout(ntm);ntm=setTimeout(save,400)}});
+addEventListener("pagehide",()=>{clearTimeout(ntm);save()});
+document.addEventListener("visibilitychange",()=>{if(document.hidden){clearTimeout(ntm);save()}});
+$("#app").addEventListener("change",e=>{if(e.target.id==="cursel"){cur=e.target.value;try{localStorage.setItem("cur2",cur)}catch(err){}render();return}if(e.target.id==="bkf"&&e.target.files[0]){importData(e.target.files[0]);e.target.value=""}});
+async function init(){
+  try{db=await idb()}catch(e){db=null}
+  let data=null;
+  if(db){try{data=await kvGet("projects")}catch(e){}}
+  if(!Array.isArray(data)){
+    let old=null;try{old=JSON.parse(localStorage.getItem("proj1")||"null")}catch(e){}
+    if(Array.isArray(old)){
+      data=old;
+      if(db){try{await kvSet("projects",old);const back=await kvGet("projects");if(JSON.stringify(back)===JSON.stringify(old))localStorage.removeItem("proj1")}catch(e){}}
+    }
+  }
+  P=Array.isArray(data)?data:[];
+  (async()=>{try{const s=navigator.storage;if(s&&s.persist){let ok=s.persisted?await s.persisted():false;if(!ok)ok=await s.persist();prot=!!ok}else prot="na"}catch(e){prot="na"}const el=$("#prot");if(el)el.textContent=protText()})();
+  render();
+}
+init();
+
+/* iOS launch screen + icon: same gradient, sized to this device */
+(function(){try{
+  const d=window.devicePixelRatio||1,a=Math.min(screen.width,screen.height),b=Math.max(screen.width,screen.height);
+  function paint(W,H){const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d"),m=Math.max(W,H);
+    const g=x.createLinearGradient(0,0,W,H);
+    [[0,"#10101c"],[.3,"#1a1540"],[.58,"#3f1a96"],[.82,"#5f27b0"],[1,"#7a2fb8"]].forEach(s=>g.addColorStop(s[0],s[1]));
+    x.fillStyle=g;x.fillRect(0,0,W,H);
+    const blob=(cx,cy,r,st)=>{const rg=x.createRadialGradient(cx,cy,0,cx,cy,r);st.forEach(s=>rg.addColorStop(s[0],s[1]));x.fillStyle=rg;x.fillRect(0,0,W,H)};
+    blob(W*1.08,H*1.08,m*.85,[[0,"#e8735a"],[.18,"#d4665a"],[.42,"rgba(196,84,128,.8)"],[1,"rgba(130,45,180,0)"]]);
+    blob(W*1.05,H*.58,m*.5,[[0,"rgba(150,60,220,.7)"],[1,"rgba(150,60,220,0)"]]);
+    blob(0,H,m*.5,[[0,"rgba(100,40,190,.65)"],[1,"rgba(100,40,190,0)"]]);
+    return c}
+  [[a,b,"portrait"],[b,a,"landscape"]].forEach(function(p){
+    const l=document.createElement("link");l.rel="apple-touch-startup-image";l.href=paint(Math.round(p[0]*d),Math.round(p[1]*d)).toDataURL("image/jpeg",.92);
+    l.media="(device-width:"+a+"px) and (device-height:"+b+"px) and (-webkit-device-pixel-ratio:"+d+") and (orientation:"+p[2]+")";
+    document.head.appendChild(l)});
+  const u=paint(180,180).toDataURL("image/png");
+  ["apple-touch-icon","icon"].forEach(r=>{const l=document.createElement("link");l.rel=r;l.href=u;document.head.appendChild(l)});
+}catch(e){}})();
+</script>
+</body>
+</html>
