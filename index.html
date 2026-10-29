@@ -90,6 +90,7 @@ h2{font-size:18px;font-weight:700;margin:32px 0 12px}
 .notes::placeholder{color:var(--dim)}
 .notes:focus{border-color:rgba(255,255,255,.4)}
 #warn{display:none;position:fixed;z-index:20;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 10px);padding:12px 16px;border-radius:16px;background:#c4553f;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.bk .pill{color:#fff;background:var(--btn);border-color:rgba(255,255,255,.3);font-weight:600;padding:11px 18px}
 .danger{width:100%;height:50px;margin-top:30px;border:0;border-radius:18px;background:var(--btn);color:#fff;font:600 16px "Space Grotesk",sans-serif;cursor:pointer}
 .empty{color:var(--dim);text-align:center;padding:34px 8px;font-size:16px}
 </style>
@@ -268,7 +269,13 @@ init();
     const l=document.createElement("link");l.rel="apple-touch-startup-image";l.href=paint(Math.round(p[0]*d),Math.round(p[1]*d)).toDataURL("image/jpeg",.92);
     l.media="(device-width:"+a+"px) and (device-height:"+b+"px) and (-webkit-device-pixel-ratio:"+d+") and (orientation:"+p[2]+")";
     document.head.appendChild(l)});
-  const u=paint(180,180).toDataURL("image/png");
+  const ic=paint(180,180),x=ic.getContext("2d"),rr=(a,b,w,h,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()};
+  x.save();x.scale(1.8,1.8);x.translate(0,7.5);x.lineWidth=5.5;x.lineJoin="round";x.lineCap="round";x.strokeStyle="#fff";x.shadowColor="rgba(20,16,50,.45)";x.shadowBlur=6;
+  x.beginPath();x.arc(31,58,11,0,Math.PI*2);x.stroke();
+  rr(58,34,22,36,5);x.stroke();
+  x.save();x.translate(52,36);x.rotate(-.25);x.beginPath();x.arc(0,0,21,Math.PI,0);x.closePath();x.stroke();x.restore();
+  x.restore();
+  const u=ic.toDataURL("image/png");
   ["apple-touch-icon","icon"].forEach(r=>{const l=document.createElement("link");l.rel=r;l.href=u;document.head.appendChild(l)});
 }catch(e){}})();
 </script>
